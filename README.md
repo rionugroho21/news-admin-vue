@@ -1,6 +1,6 @@
 # news-crud-vue
 
-> CRUD with Vue and Firebase
+> CRUD with Bootstrap, Vue, Vuex and Firebase
 
 ## Build Setup
 
