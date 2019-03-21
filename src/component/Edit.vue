@@ -17,12 +17,9 @@
                     </div>
                     <div class="form-group">
                         <label for="nf-cat" class=" form-control-label">Category</label>
-                        <!-- <select id="nf-cat" class="form-control option-category" name="category" v-bind:value="category">
-                            <option>Test</option>
-                            <option>Test</option>
-                            <option>Test</option>
-                        </select> -->
-                        <input type="text" id="nf-category" name="category" class="form-control" v-model="category"/>
+                        <select id="nf-cat" class="form-control option-category" name="category" v-model="category">
+                            <option v-for="cat in categories" :key="cat">{{cat}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="nf-content" class=" form-control-label">Content</label>
@@ -38,8 +35,6 @@
 </template>
 
 <script>
-//import {startEditingDatas} from '../service/service'
-
 export default {
     name: 'Edit',
     data() {
@@ -50,6 +45,9 @@ export default {
             category: this.$route.params.category,
             content: this.$route.params.content
         }
+    },
+    prop: {
+        categories: String
     },
     methods: {
         handleSubmit(event){
@@ -63,7 +61,15 @@ export default {
             }
             this.$store.dispatch("editData", formData);
             this.$router.push('/');
+        },
+        loadCat() {
+            this.$store.dispatch("loadCategory");
         }
+    },
+    computed: {
+        categories() {
+            return this.$store.state.category;
+        }   
     }
 }
 </script>

@@ -1,15 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {startAddingPost, startLoadingDatas, startEditingDatas, startRemovingDatas} from './service/service'
+import {startAddingPost, startLoadingDatas, startEditingDatas, startRemovingDatas, startLoadingCat} from './service/service'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    data: []
+    data: [],
+    category: []
   },
   mutations: {
     addDatas(state, data){
+      state.data = data
+    },
+    loadDatas(state, data) {
       state.data = data
     },
     updateDatas(state, data) {
@@ -18,6 +22,9 @@ export default new Vuex.Store({
     deletePost(state, id) {
       let index = state.data.findIndex(data => data.id == id)
       state.data.splice(index, 1)
+    },
+    loadCategory(state, category){
+      state.category = category
     }
   },
   actions: {
@@ -33,7 +40,7 @@ export default new Vuex.Store({
     loadData({commit}) {
       startLoadingDatas()
       .then((response) => {
-        commit('updateDatas', response)
+        commit('loadDatas', response)
       })
       .catch((error) => {
         console.log(error);
@@ -54,6 +61,15 @@ export default new Vuex.Store({
       .then((response) => {
         console.log(response)
         commit('deletePost', id)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    loadCategory({commit}) {
+      startLoadingCat()
+      .then((response) => {
+        commit('loadCategory', response)
       })
       .catch((error) => {
         console.log(error);

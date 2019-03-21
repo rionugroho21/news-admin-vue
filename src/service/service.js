@@ -39,3 +39,15 @@ export function startRemovingDatas(id) {
         console.log(error);
     });
 }
+
+export function startLoadingCat() {
+    return database.ref('category').once('value').then((snapshot) => {
+        let datas = [];
+        snapshot.forEach((childSnapshot) => {
+            datas.push(childSnapshot.val());
+        });
+        return datas;
+    }).catch((error) => {
+        console.log(error);
+    });
+}

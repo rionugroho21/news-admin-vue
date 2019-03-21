@@ -16,13 +16,9 @@
                     </div>
                     <div class="form-group">
                         <label for="nf-cat" class="form-control-label">Category</label>
-                        <!-- <select id="nf-cat" class="form-control option-category" v-model="category" name="category" value="">
-                            <option>Technology</option>
-                            <option>Sport</option>
-                            <option>Auto</option>
-                            <option>Business</option>
-                        </select> -->
-                        <input type="text" id="nf-category" name="category" class="form-control" v-model="category"/>
+                        <select id="nf-cat" class="form-control option-category" name="category" v-model="category">
+                            <option v-for="cat in categories" :key="cat">{{cat}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="nf-content" class="form-control-label">Content</label>
@@ -51,6 +47,12 @@ export default {
             content: ""
         }
     },
+    prop: {
+        categories: String
+    },
+    mounted() {
+        this.loadCat();
+    },
     methods: {
         handleSubmit(event){
             event.preventDefault();
@@ -63,7 +65,15 @@ export default {
             }
             this.$store.dispatch("addData", formData);
             this.$router.push('/');
+        },
+        loadCat() {
+            this.$store.dispatch("loadCategory");
         }
+    },
+    computed: {
+        categories() {
+            return this.$store.state.category;
+        }   
     }
 }
 </script>
