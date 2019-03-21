@@ -17,6 +17,7 @@
                     <div class="form-group">
                         <label for="nf-cat" class="form-control-label">Category</label>
                         <select id="nf-cat" class="form-control option-category" name="category" v-model="category">
+                            <option disabled value="">Please select one</option>
                             <option v-for="cat in categories" :key="cat">{{cat}}</option>
                         </select>
                     </div>
