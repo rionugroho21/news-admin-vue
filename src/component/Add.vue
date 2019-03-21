@@ -16,12 +16,13 @@
                     </div>
                     <div class="form-group">
                         <label for="nf-cat" class="form-control-label">Category</label>
-                        <select id="nf-cat" class="form-control option-category" v-model="category" name="category" value="">
+                        <!-- <select id="nf-cat" class="form-control option-category" v-model="category" name="category" value="">
                             <option>Technology</option>
                             <option>Sport</option>
                             <option>Auto</option>
                             <option>Business</option>
-                        </select>
+                        </select> -->
+                        <input type="text" id="nf-category" name="category" class="form-control" v-model="category"/>
                     </div>
                     <div class="form-group">
                         <label for="nf-content" class="form-control-label">Content</label>
@@ -50,18 +51,19 @@ export default {
             content: ""
         }
     },
-    handleSubmit(event){
-        event.preventDefault();
-        const formData = {
-            id: this.id,
-            imageLink: this.imageLink,
-            title: this.title,
-            category: this.category,
-            content: this.content
+    methods: {
+        handleSubmit(event){
+            event.preventDefault();
+            const formData = {
+                id: this.id,
+                imageLink: this.imageLink,
+                title: this.title,
+                category: this.category,
+                content: this.content
+            }
+            this.$store.dispatch("addData", formData);
+            this.$router.push('/');
         }
-        axios.post('https://news.firebaseio.com/users.json', formData)
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
     }
 }
 </script>

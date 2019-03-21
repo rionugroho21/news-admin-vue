@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {startLoadingDatas, startEditingDatas, startRemovingDatas} from './service/service'
+import {startAddingPost, startLoadingDatas, startEditingDatas, startRemovingDatas} from './service/service'
 
 Vue.use(Vuex)
 
@@ -9,6 +9,9 @@ export default new Vuex.Store({
     data: []
   },
   mutations: {
+    addDatas(state, data){
+      state.data = data
+    },
     updateDatas(state, data) {
       state.data = data
     },
@@ -18,6 +21,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    addData({commit}, data) {
+      startAddingPost(data)
+      .then((response) => {
+        commit('addDatas', response)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
     loadData({commit}) {
       startLoadingDatas()
       .then((response) => {

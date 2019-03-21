@@ -21,8 +21,12 @@ export function startAddingPost(data) {
 }
 
 export function startEditingDatas(data) {
-    return database.ref(`datas`).update({[data.id]: data}).then(() => {
-        // console.log(data);
+    return database.ref(`datas`).update({[data.id]: data}).then((snapshot) => {
+        let post = [];
+            snapshot.forEach((childSnapshot) => {
+                post.push(childSnapshot.val());
+            });
+        return post;
     }).catch((error) => {
         console.log(error);
     });

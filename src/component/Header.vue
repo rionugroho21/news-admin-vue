@@ -12,7 +12,7 @@
                         </form>
                     </div>
                     <div class="add">
-                        <router-link to="/Add" class="add-trigger"><i class="fa fa-plus"></i></router-link>
+                        <router-link to="/add" class="add-trigger"><i class="fa fa-plus"></i></router-link>
                     </div>
                 </div>
             </div>
